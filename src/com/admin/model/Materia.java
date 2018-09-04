@@ -25,10 +25,4 @@ public class Materia {
         this.cod = cod;
     }
 
-    @Override
-    public String toString() {
-        return "[" + id + "] [" + cod + "] [" + nombre + "]";
-    }
-
-
 }

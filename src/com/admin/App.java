@@ -9,7 +9,7 @@ public class App {
 
         System.out.println("Lista Materias Alumno 1:");
         for (Materia iter : materiadao.getMateriasAprobadasFromAlumno(1)) {
-            System.out.println(iter);
+            System.out.println(iter.getNombre());
         }
     }
 }
