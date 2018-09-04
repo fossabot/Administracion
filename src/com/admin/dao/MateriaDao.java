@@ -73,6 +73,44 @@ public class MateriaDao {
         return materias;
     }
 
+    public List<Materia> getAllMateriasFromAlumno(int userId) {
+        List<Materia> materias = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT materias.id AS id, materias.nombre AS nombre, materias.cod AS cod FROM materias INNER JOIN materias_alumnos ON materias.id=materias_alumnos.id_materia WHERE id_alumno=?");
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                Materia materia = new Materia();
+                materia.setId(rs.getInt("id"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setCod(rs.getString("cod"));
+                materias.add(materia);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return materias;
+    }
+
+    public List<Materia> getMateriasAprobadasFromAlumno(int userId) {
+        List<Materia> materias = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT materias.id AS id, materias.nombre AS nombre, materias.cod AS cod FROM materias INNER JOIN materias_alumnos ON materias.id=materias_alumnos.id_materia WHERE id_alumno=? AND final>=4");
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                Materia materia = new Materia();
+                materia.setId(rs.getInt("id"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setCod(rs.getString("cod"));
+                materias.add(materia);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return materias;
+    }
+
     public Materia getMateriaById(int userId) {
         Materia materia = new Materia();
         try {
